@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ekky Defa Rizkyan - Senior SRE</title><link>https://defa-ekky.github.io/</link><description>Recent content on Ekky Defa Rizkyan - Senior SRE</description><generator>Hugo -- 0.152.2</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://defa-ekky.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://defa-ekky.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky.github.io/about/</guid><description>&lt;p&gt;Hi Im Ekky, a Senior Site Reliability Engineer.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I&amp;rsquo;m a lifelong learner, a systems thinker, and a builder at heart.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;My journey in tech has always been driven by curiosity. I don&amp;rsquo;t just work with systems, I obsess over how they behave, how they break, and how to make them better, faster, and more resilient. Whether it&amp;rsquo;s infrastructure, automation, security, observability, or developer tooling, I find joy in diving deep into complexity and emerging with clarity, structure, and solutions that make a real impact.&lt;/p&gt;</description></item><item><title>Professional Experience</title><link>https://defa-ekky.github.io/experience/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky.github.io/experience/</guid><description>&lt;hr&gt;
+&lt;h2 id="quipper--senior-site-reliability-engineer"&gt;Quipper | Senior Site Reliability Engineer&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Remote, 2022 — Present&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Focused on improving infrastructure reliability, developer experience, and platform efficiency across distributed environments.&lt;/p&gt;
+&lt;h3 id="key-contributions"&gt;Key Contributions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Built and maintained reliable infrastructure using cloud platforms, SaaS, and open-source tooling&lt;/li&gt;
+&lt;li&gt;Automated infrastructure management using IaC workflows&lt;/li&gt;
+&lt;li&gt;Improved CI/CD pipelines, application reliability, and resource efficiency&lt;/li&gt;
+&lt;li&gt;Enhanced observability, troubleshooting, and systems cost-efficiency&lt;/li&gt;
+&lt;li&gt;Collaborated closely with development teams to increase deployment velocity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="notable-achievements"&gt;Notable Achievements&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Migrated CI/CD from &lt;strong&gt;CircleCI → GitHub Actions w/ self-hosted runners&lt;/strong&gt;, saving &lt;strong&gt;$6K/month&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Boosted developer productivity by &lt;strong&gt;83%&lt;/strong&gt; using workflow analytics and optimization&lt;/li&gt;
+&lt;li&gt;Improved service availability by migrating public endpoints to &lt;strong&gt;CloudFront + WAF&lt;/strong&gt; for DDoS protection&lt;/li&gt;
+&lt;li&gt;Built an &lt;strong&gt;AI-powered documentation copilot&lt;/strong&gt; using GPT-4 + Azure to reduce SRE support load&lt;/li&gt;
+&lt;li&gt;Designed and implemented a &lt;strong&gt;performance testing platform&lt;/strong&gt; that reduced execution time from &lt;strong&gt;2 hours → 15 minutes&lt;/strong&gt; and saved &lt;strong&gt;$60K/year&lt;/strong&gt; in infra cost + significant operational effort&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="efishery--devops-engineer"&gt;eFishery | DevOps Engineer&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Remote, 2021 — 2023&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>
