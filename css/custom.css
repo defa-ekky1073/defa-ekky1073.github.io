@@ -318,7 +318,13 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .nav #menu {
-        margin-top: -1rem;
+        margin-top: 0rem;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .nav .logo {
+        display: none;
     }
 
     .profile-header {
