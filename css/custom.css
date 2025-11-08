@@ -217,6 +217,29 @@
     line-height: 1;
 }
 
+/* Pagination navigation buttons (Prev/Next) */
+.pagination .prev,
+.pagination .next {
+    min-width: 100px;
+    padding: 0 1.25rem !important;
+    background: var(--entry);
+    color: var(--primary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.pagination .next {
+    margin-left: auto;
+}
+
+.pagination .prev:hover,
+.pagination .next:hover {
+    background: var(--code-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 /* Pagination Spans (current page, disabled, etc) */
 .pagination span {
     display: inline-flex;
@@ -279,15 +302,25 @@
     padding: 0 0.5rem;
 }
 
-/* List Styling */
-ul, ol {
-    list-style-type: none;
-    padding-left: 0;
-    margin-left: 0;
+/* Force list styling */
+#content ul:not([class]),
+#content ol:not([class]) {
+    list-style: disc !important;
+    padding-left: 2em !important;
+}
+
+#content ul:not([class]) li,
+#content ol:not([class]) li {
+    display: list-item !important;
+    list-style-type: inherit !important;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .nav #menu {
+        margin-top: -1rem;
+    }
+
     .profile-header {
         padding: 1.5rem 1rem;
     }
@@ -306,13 +339,17 @@ ul, ol {
     }
     
     .profile-buttons {
-        gap: 0.8rem;
+        gap: 0rem;
     }
     
     .profile-buttons .button {
-        padding: 0.5rem 1.2rem;
+        padding: 0.5rem 0.7rem;
         font-size: 0.9rem;
+        margin: 0.2rem;
     }
+
+    .profile-container.profile-only {
+    position: static;
     
     .social-links {
         gap: 1.2rem;
