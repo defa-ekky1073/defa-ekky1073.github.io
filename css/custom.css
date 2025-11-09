@@ -399,6 +399,18 @@
         display: none;
     }
 
+    .post-header {
+        display: none;
+    }
+
+    .page-header {
+        padding-top: 0.1rem;
+    }
+
+    .post-single {
+        padding-top: 1rem;
+    }
+
     .profile-header {
         padding: 1.5rem 1rem;
         margin-top: 2rem;
