@@ -177,6 +177,11 @@
     margin-top: 2rem;
 }
 
+/* Main Content Width */
+:root {
+    --main-width: 1000px; /* Increased from default ~1000px */
+}
+
 /* Pagination */
 .pagination {
     display: flex;
