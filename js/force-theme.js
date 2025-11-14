@@ -1,13 +1,23 @@
 // Add smooth transitions for theme changes
 function initThemeTransitions() {
-    // Set transition styles
+    // Set transition styles with !important to ensure they take precedence
     const style = document.createElement('style');
     style.id = 'theme-transition-styles';
     style.textContent = `
-        html, body, main, header, footer, article, .post, .entry, .content {
+        html, body, main, header, footer, article, .post, .entry, .content, 
+        .post-content, .post-title, .entry-content, .entry-title, 
+        .post-meta, .post-tags, .post-footer, .post-nav,
+        .page-header, .page-content, .page-footer {
             transition: 
-                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important,
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important,
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important,
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        
+        /* Force transitions to work on all properties */
+        * {
+            transition: inherit !important;
         }
     `;
     
@@ -63,29 +73,46 @@ function updateThemeByPath() {
     // If theme already matches, do nothing
 }
 
-// Initialize everything when the DOM is loaded
+// Initialize everything when the DOM is fully loaded
 function init() {
-    initThemeTransitions();
-    
-    // Initial theme setup
-    const savedTheme = localStorage.getItem('pref-theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    try {
+        // First, ensure the theme is set before applying transitions
+        const savedTheme = localStorage.getItem('pref-theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+        
+        // Initialize transitions after a small delay to ensure DOM is ready
+        setTimeout(() => {
+            initThemeTransitions();
+            // Update theme based on initial path
+            updateThemeByPath();
+        }, 50);
+        
+        // Update theme when navigating between pages
+        window.addEventListener('popstate', updateThemeByPath);
+        
+        // Also update theme when page is shown (for browser back/forward cache)
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                updateThemeByPath();
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error initializing theme:', error);
     }
-    
-    // Update theme based on initial path
-    updateThemeByPath();
-    
-    // Update theme when navigating between pages
-    window.addEventListener('popstate', updateThemeByPath);
 }
 
-// Initialize when the DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+// Wait for the entire page to be loaded, including all resources
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    // Call init on next tick to ensure the rest of the page is ready
+    setTimeout(init, 1);
 } else {
-    init();
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(init, 1);
+    });
 }
