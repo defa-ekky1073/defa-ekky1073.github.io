@@ -9,43 +9,41 @@ function initThemeTransitions() {
         existingStyle.remove();
     }
     
-    // Add a class to the html element to enable transitions
-    html.classList.add('theme-transitions-enabled');
+    // Add loading class to prevent initial transitions
+    html.classList.add('theme-loading');
     
     // Create and append the transition styles
     const style = document.createElement('style');
     style.id = 'theme-transition-styles';
     style.textContent = `
-        /* Base transitions for all elements */
-        .theme-transitions-enabled * {
-            transition-property: background-color, color, border-color, box-shadow, fill, stroke, opacity, text-shadow, transform;
-            transition-duration: 0.3s;
-            transition-timing-function: ease-in-out;
+        /* Transitions for theme changes - only apply to specific elements */
+        html, body, 
+        .post-content, .entry-content,
+        header, footer, nav, article, section,
+        .card, .pagination, .menu {
+            transition: 
+                background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out,
+                border-color 0.3s ease-in-out !important;
         }
         
         /* Disable transitions during initial page load */
-        .theme-transitions-enabled.theme-loading * {
+        .theme-loading * {
             transition: none !important;
-        }
-        
-        /* Smooth transitions for theme changes */
-        .theme-transitions-enabled.is-changing-theme {
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
     `;
     document.head.appendChild(style);
     
-    // Handle transition end
-    const onTransitionEnd = () => {
-        html.classList.remove('is-changing-theme');
-    };
+    // Enable transitions after a short delay
+    setTimeout(() => {
+        html.classList.remove('theme-loading');
+    }, 100);
     
-    // Add transition class when theme changes
+    // Handle theme changes
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
             if (mutation.attributeName === 'data-theme') {
-                html.classList.add('is-changing-theme');
-                document.addEventListener('transitionend', onTransitionEnd, { once: true });
+                // No need to add/remove classes for transitions
                 break;
             }
         }
@@ -74,18 +72,12 @@ function updateThemeByPath() {
         // Skip if already the correct theme
         if (currentTheme === theme) return;
         
-        // Add transition class and force reflow
-        html.classList.add('is-changing-theme');
-        void html.offsetHeight; // Force reflow
+        // Force reflow to ensure the theme change is visible
+        void html.offsetHeight;
         
         // Set the new theme
         html.setAttribute('data-theme', theme);
         localStorage.setItem('pref-theme', theme);
-        
-        // Clean up after transition
-        setTimeout(() => {
-            html.classList.remove('is-changing-theme');
-        }, 400);
     };
     
     // Apply the appropriate theme based on the path
