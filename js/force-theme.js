@@ -1,43 +1,50 @@
 // Add smooth transitions for theme changes
 function initThemeTransitions() {
-    // Set transition styles with !important to ensure they take precedence
-    const style = document.createElement('style');
-    style.id = 'theme-transition-styles';
-    style.textContent = `
-        html, body, main, header, footer, article, .post, .entry, .content, 
-        .post-content, .post-title, .entry-content, .entry-title, 
-        .post-meta, .post-tags, .post-footer, .post-nav,
-        .page-header, .page-content, .page-footer {
-            transition: 
-                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important,
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important,
-                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important,
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-        
-        /* Force transitions to work on all properties */
-        * {
-            transition: inherit !important;
-        }
-    `;
+    console.log('Initializing theme transitions...');
+    const html = document.documentElement;
     
     // Remove any existing transition styles
     const existingStyle = document.getElementById('theme-transition-styles');
     if (existingStyle) {
         existingStyle.remove();
     }
+    
+    // Add a class to the html element to enable transitions
+    html.classList.add('theme-transitions-enabled');
+    
+    // Create and append the transition styles
+    const style = document.createElement('style');
+    style.id = 'theme-transition-styles';
+    style.textContent = `
+        /* Base transitions for all elements */
+        .theme-transitions-enabled * {
+            transition-property: background-color, color, border-color, box-shadow, fill, stroke, opacity, text-shadow, transform;
+            transition-duration: 0.3s;
+            transition-timing-function: ease-in-out;
+        }
+        
+        /* Disable transitions during initial page load */
+        .theme-transitions-enabled.theme-loading * {
+            transition: none !important;
+        }
+        
+        /* Smooth transitions for theme changes */
+        .theme-transitions-enabled.is-changing-theme {
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+    `;
     document.head.appendChild(style);
     
     // Handle transition end
     const onTransitionEnd = () => {
-        document.documentElement.classList.remove('is-changing-theme');
+        html.classList.remove('is-changing-theme');
     };
     
     // Add transition class when theme changes
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
             if (mutation.attributeName === 'data-theme') {
-                document.documentElement.classList.add('is-changing-theme');
+                html.classList.add('is-changing-theme');
                 document.addEventListener('transitionend', onTransitionEnd, { once: true });
                 break;
             }
@@ -45,7 +52,7 @@ function initThemeTransitions() {
     });
     
     // Start observing the document element for theme changes
-    observer.observe(document.documentElement, {
+    observer.observe(html, {
         attributes: true,
         attributeFilter: ['data-theme']
     });
@@ -53,41 +60,65 @@ function initThemeTransitions() {
 
 /**
  * Update theme based on current path
- * - On /entry// paths: force light theme
+ * - On /entry/ paths: force light theme
  * - Everywhere else: force dark theme
-**/
+ */
 function updateThemeByPath() {
     const path = window.location.pathname;
     const isEntryPage = /\/entry\/[^/]+\//.test(path);
-    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
     
-    if (isEntryPage && currentTheme === 'dark') {
-        // Switch to light theme for entry pages
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('pref-theme', 'light');
-    } else if (!isEntryPage && currentTheme === 'light') {
-        // Switch to dark theme for non-entry pages
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('pref-theme', 'dark');
+    // Function to set theme with transition
+    const setTheme = (theme) => {
+        // Skip if already the correct theme
+        if (currentTheme === theme) return;
+        
+        // Add transition class and force reflow
+        html.classList.add('is-changing-theme');
+        void html.offsetHeight; // Force reflow
+        
+        // Set the new theme
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('pref-theme', theme);
+        
+        // Clean up after transition
+        setTimeout(() => {
+            html.classList.remove('is-changing-theme');
+        }, 400);
+    };
+    
+    // Apply the appropriate theme based on the path
+    if (isEntryPage) {
+        setTheme('light');
+    } else {
+        setTheme('dark');
     }
-    // If theme already matches, do nothing
 }
 
 // Initialize everything when the DOM is fully loaded
 function init() {
     try {
-        // First, ensure the theme is set before applying transitions
-        const savedTheme = localStorage.getItem('pref-theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-        }
+        console.log('Initializing theme...');
+        const html = document.documentElement;
         
-        // Initialize transitions after a small delay to ensure DOM is ready
+        // Add loading class to prevent transitions during initial load
+        html.classList.add('theme-loading');
+        
+        // Get the current theme from localStorage or system preference
+        const savedTheme = localStorage.getItem('pref-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        // Set initial theme (without transitions)
+        html.setAttribute('data-theme', initialTheme);
+        
+        // Initialize transitions
+        initThemeTransitions();
+        
+        // Remove loading class after a short delay to enable transitions
         setTimeout(() => {
-            initThemeTransitions();
+            html.classList.remove('theme-loading');
             // Update theme based on initial path
             updateThemeByPath();
         }, 50);
@@ -101,6 +132,31 @@ function init() {
                 updateThemeByPath();
             }
         });
+        
+        // Override the theme toggle to ensure smooth transitions
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Update theme with transition
+                html.classList.add('is-changing-theme');
+                void html.offsetHeight; // Force reflow
+                
+                // Set the new theme
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('pref-theme', newTheme);
+                
+                // Clean up after transition
+                setTimeout(() => {
+                    html.classList.remove('is-changing-theme');
+                }, 400);
+            });
+        }
+        
+        console.log('Theme initialization complete');
         
     } catch (error) {
         console.error('Error initializing theme:', error);
