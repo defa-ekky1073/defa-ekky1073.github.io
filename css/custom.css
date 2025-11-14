@@ -57,7 +57,6 @@
     justify-content: center;
     z-index: 1;
     padding: 2rem;
-    background: var(--theme);
     overflow-y: auto; /* Enable scrolling if content is too tall */
 }
 
@@ -68,7 +67,6 @@
 }
 
 .profile-header {
-    background: var(--theme);
     border-radius: var(--radius);
     padding: 2rem 1rem;
     margin-bottom: 2rem;
@@ -134,7 +132,7 @@
     justify-content: center;
     padding: 0.5rem 1.2rem;
     background: var(--tertiary);
-    color: white !important;
+    color: var(--primary);
     border-radius: var(--radius);
     text-decoration: none;
     font-weight: 300;
