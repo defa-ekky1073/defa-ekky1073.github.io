@@ -352,7 +352,7 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;li&gt;GitHub: &lt;a href="https://github.com/defa-ekky1073"&gt;https://github.com/defa-ekky1073&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>Professional Experience</title><link>https://defa-ekky1073.github.io/experience/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky1073.github.io/experience/</guid><description>&lt;hr&gt;
 &lt;h2 id="quipper--senior-site-reliability-engineer"&gt;&lt;a href="https://quipper.com/"&gt;Quipper | Senior Site Reliability Engineer&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, 2022 — Present&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, 2022 — 2026&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;As the Senior SRE, I own the reliability and developer-experience charter across multi-cloud infrastructure, pushing automation, observability, and CI/CD maturity so teams can ship faster with confidence.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Migrated CI/CD from CircleCI to GitHub Actions with self-hosted runners, saving ~$6K/month and enabling reusable workflows.&lt;/li&gt;
