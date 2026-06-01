@@ -1,2 +1,328 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Entries on Ekky Defa Rizkyan</title><link>https://defa-ekky1073.github.io/entry/</link><description>Recent content in Entries on Ekky Defa Rizkyan</description><generator>Hugo -- 0.161.1</generator><language>en-us</language><managingEditor>defa.ekky1073@gmail.com (Ekky Defa Rizkyan)</managingEditor><webMaster>defa.ekky1073@gmail.com (Ekky Defa Rizkyan)</webMaster><lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://defa-ekky1073.github.io/entry/index.xml" rel="self" type="application/rss+xml"/><item><title>Redefining Quipper’s Performance Testing Platform</title><link>https://defa-ekky1073.github.io/entry/performance-test-improvement/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><author>defa.ekky1073@gmail.com (Ekky Defa Rizkyan)</author><guid>https://defa-ekky1073.github.io/entry/performance-test-improvement/</guid><description>&lt;hr&gt;
-&lt;h1 id="how-we-cut-execution-time-from-2-hours--15-minutes-and-saved-60kyear-"&gt;How we cut execution time from 2 hours → 15 minutes and saved $60K+/year 🚀&lt;/h1&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Entries on Ekky Defa Rizkyan</title><link>https://defa-ekky1073.github.io/entry/</link><description>Recent content in Entries on Ekky Defa Rizkyan</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://defa-ekky1073.github.io/entry/index.xml" rel="self" type="application/rss+xml"/><item><title>Redefining Quipper’s Performance Testing Platform</title><link>https://defa-ekky1073.github.io/entry/performance-test-improvement/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://defa-ekky1073.github.io/entry/performance-test-improvement/</guid><description>&lt;hr&gt;
+&lt;h1 id="how-we-cut-execution-time-from-2-hours--15-minutes-and-saved-60kyear-"&gt;How we cut execution time from 2 hours → 15 minutes and saved $60K+/year 🚀&lt;/h1&gt;
+&lt;p&gt;Performance testing at scale is rarely glamorous. It’s slow, unpredictable, and often under-invested, until something breaks. When I joined Quipper, our performance-testing workflow was functional but far from efficient. Tests took nearly 2 hours to run, required significant engineering effort, and consumed more infrastructure than we were comfortable with. And as our products grew, the process was increasingly hard to justify.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="the-problem"&gt;The problem&lt;/h2&gt;
+&lt;p&gt;Before the redesign, our performance-testing workflow was slow, expensive, and almost entirely manual. Running a single test felt like assembling a lab experiment from scratch, every time.&lt;/p&gt;
+&lt;p&gt;Here’s how it worked:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Original Performance Testing Architecture" loading="lazy" src="https://defa-ekky1073.github.io/assets/original-arch-diagram.webp"&gt;&lt;/p&gt;
+&lt;h3 id="1-everything-was-manual"&gt;1. Everything was manual&lt;/h3&gt;
+&lt;p&gt;Nothing about the workflow was automated. Every test run required a human QA engineer to perform dozens of manual steps just to get things going.&lt;/p&gt;
+&lt;h3 id="2-manual-file-preparation--upload"&gt;2. Manual file preparation + upload&lt;/h3&gt;
+&lt;p&gt;To start a test, the QA team had to manually prepare and upload all JMeter artifacts, such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.jmx test plans&lt;/li&gt;
+&lt;li&gt;.csv dataset files&lt;/li&gt;
+&lt;li&gt;.test configuration assets&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These files were uploaded to S3, only to be manually pulled down again later on the servers where the test would run. This workflow was repetitive and time-consuming.&lt;/p&gt;
+&lt;h3 id="3-overreliance-on-aws-workspaces-and-its-high-cost"&gt;3. Overreliance on AWS WorkSpaces (and its high cost)&lt;/h3&gt;
+&lt;p&gt;The entire test environment ran on AWS WorkSpaces, which is essentially a fully managed virtual desktop (VDI), great for office workers, not so great for distributed load testing.&lt;/p&gt;
+&lt;p&gt;For each performance test:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;QA engineers had to spin up 25 WorkSpace nodes&lt;/li&gt;
+&lt;li&gt;Each had to be started manually&lt;/li&gt;
+&lt;li&gt;And shut down manually&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Beyond the friction, WorkSpaces was overpriced for this use case.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;📊 Cost Estimation:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;A Windows WorkSpace (PowerPro bundle) is:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• $7.25 monthly base fee per instance
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• $1.53/hour usage
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• $1.53/hr × 25 instances × 2 hours/test = $76.50/run
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;If QA runs the test once per day:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• $76.50 × 30 days = $2,295/month in usage fees
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• Plus $7.25 × 25 instances = $181.25 in monthly base fees
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• Total: ~$2,476.25/month
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;If tests run twice per day:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• $153 × 30 days = $4,590/month in usage fees
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• Plus $181.25 in monthly base fees
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• Total: ~$4,771.25/month
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;That&amp;#39;s only the compute cost — storage, data transfer, and base fees add more.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Realistic total costs (including overhead):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• ~$6,000–$8,000/month
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;• Up to ~$72,000–$96,000/year
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;And that&amp;#39;s only for performance testing.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Furthermore:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WorkSpaces billing rounds hourly
+&lt;ul&gt;
+&lt;li&gt;If you run 61 minutes, you pay 2 hours&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Billing confusion + manual shutdowns often led to over-billing&lt;/li&gt;
+&lt;li&gt;QA was limited to working within time windows to keep cost down&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We were spending cloud-desktop money to run distributed load testing and paying for the privilege of doing it manually.&lt;/p&gt;
+&lt;h3 id="4-manual-distribution-of-test-artifacts"&gt;4. Manual distribution of test artifacts&lt;/h3&gt;
+&lt;p&gt;Once WorkSpaces were up, the QA engineer still had to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Connect to the first node using AWS Console&lt;/li&gt;
+&lt;li&gt;Download the test assets from S3&lt;/li&gt;
+&lt;li&gt;Run 16 separate Python files to distribute the test assets to each node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="Original Python Distributor" loading="lazy" src="https://defa-ekky1073.github.io/assets/16-python.png"&gt;&lt;/p&gt;
+&lt;p&gt;If anything failed, the QA had to restart the distribution manually. There was no retry automation, no integrity checking, and no self-healing.&lt;/p&gt;
+&lt;h3 id="5-manual-execution-of-jmeter"&gt;5. Manual execution of JMeter&lt;/h3&gt;
+&lt;p&gt;After distribution, the QA would initiate JMeter from the first instance. This instance acted as the controller, coordinating 24 secondary nodes. Any misconfiguration, file mismatch, missing dependency, wrong path, etc., requires starting over.&lt;/p&gt;
+&lt;h3 id="6-manual-result-upload"&gt;6. Manual result upload&lt;/h3&gt;
+&lt;p&gt;Once the test finished:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The QA exported results&lt;/li&gt;
+&lt;li&gt;Manually uploaded them back to S3&lt;/li&gt;
+&lt;li&gt;They have to download it manually to their local machine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Only after that could anyone analyze the output or generate reports.&lt;/p&gt;
+&lt;h3 id="7-manual-shutdown"&gt;7. Manual shutdown&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Finally, and critically! All 25 WorkSpaces had to be shut down manually!&lt;/strong&gt; If someone forgot, WorkSpaces kept charging by the hour. And because of hourly billing rounding, even short mistakes were costly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;All of those steps took about 2 hours to complete!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This meant:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Long iteration cycles&lt;/li&gt;
+&lt;li&gt;Low test frequency&lt;/li&gt;
+&lt;li&gt;Higher risk of missed regressions&lt;/li&gt;
+&lt;li&gt;High operational burden&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;❗ 📉 Performance testing wasn’t a tool, it was a tax.&lt;/strong&gt;&lt;/em&gt; It&amp;rsquo;s wasting available resources: time, money, and man-hours.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="the-approach"&gt;The Approach&lt;/h2&gt;
+&lt;p&gt;Once we identified that the real bottleneck wasn’t the testing tool, but the process, the goal became simple:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Make performance testing fast, automated, flexible, and cost-efficient&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Instead of patching the old process, I decided to rebuild it from the ground up using Infrastructure as Code, automation, and lightweight orchestration.
+&lt;img alt="Finalized Performance Testing Architecture" loading="lazy" src="https://defa-ekky1073.github.io/assets/final-arch-diagram.webp"&gt;&lt;/p&gt;
+&lt;h3 id="1-infrastructure-redesign-with-terraform--github-actions"&gt;1. Infrastructure Redesign with Terraform + GitHub Actions&lt;/h3&gt;
+&lt;p&gt;The first step was to replace AWS WorkSpaces entirely. They were slow, expensive, and ill-suited for distributed automation.&lt;/p&gt;
+&lt;p&gt;I migrated the testing infrastructure to AWS EC2, provisioning all resources through Terraform. This gave us a clean, declarative setup where every environment could be built, destroyed, or modified automatically and repeatably.&lt;/p&gt;
+&lt;p&gt;To make the process fully automated and auditable:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform runs are executed directly through GitHub Actions&lt;/li&gt;
+&lt;li&gt;All infrastructure changes are committed and tracked in our IaC repository&lt;/li&gt;
+&lt;li&gt;Any updates to configuration automatically trigger deployments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Every test environment is now ephemeral: &lt;strong&gt;created on demand, and destroyed after use&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Each EC2 instance is pre-configured automatically via user-data scripts, which install:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JMeter&lt;/li&gt;
+&lt;li&gt;Dependencies (Python, monitoring agents, etc.)&lt;/li&gt;
+&lt;li&gt;Environment-specific configurations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This means the QA engineer doesn’t need to install or configure anything manually, the infrastructure configures itself.&lt;/p&gt;
+&lt;h3 id="2-simplifying-configuration-for-qa-engineers"&gt;2. Simplifying Configuration for QA Engineers&lt;/h3&gt;
+&lt;p&gt;While Terraform gave us automation, it wasn’t friendly to non-engineers. So I designed the setup around a single configuration file local.tf. which exposes all the tunable parameters the QA team might need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-hcl" data-lang="hcl"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; # General Configuration
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; region &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;us-east-1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; jmeter_version &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;5.6.3&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; bucket_name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;performance-test-bucket&amp;#34;&lt;/span&gt;&lt;span style="color:#75715e"&gt; # Only change this if required, otherwise let it be
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; instance_tag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;performance_test&amp;#34;&lt;/span&gt;&lt;span style="color:#75715e"&gt; # This must be have same value as in python distributor, autimatically set worker and master tag
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ami_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;data&lt;/span&gt;.&lt;span style="color:#66d9ef"&gt;aws_ami&lt;/span&gt;.&lt;span style="color:#66d9ef"&gt;amazon_linux_2023&lt;/span&gt;.&lt;span style="color:#66d9ef"&gt;id&lt;/span&gt;&lt;span style="color:#75715e"&gt; # Amazon Linux 2023 AMI (dynamically fetched)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; # Change ami_id if you need to change instances OS, but make sure to update the user_data on instance.tf
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; # Worker Configuration
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; instance_count &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; worker_instance_type &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;c6g.large&amp;#34;&lt;/span&gt;&lt;span style="color:#75715e"&gt; # You can check instance types on https://instances.vantage.sh/
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; # Master Configuration
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; enable_master &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;&lt;span style="color:#75715e"&gt; # Set this to false if you going to use your local machine as master
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; master_instance_type &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;c6g.large&amp;#34;&lt;/span&gt;&lt;span style="color:#75715e"&gt; # You can check instance types on https://instances.vantage.sh/
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All critical parameters, such as the number of nodes, instance type, tags, JMeter version can be adjusted from one place. QA engineers don’t have to touch multiple .tf files or understand Terraform internals.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This abstraction turned infrastructure setup into something simple, safe, and self-serve.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;No SRE intervention needed&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="3-introducing-pydist-the-python-controller"&gt;3. Introducing PyDist: the Python Controller&lt;/h3&gt;
+&lt;p&gt;Once the infrastructure was automated, I built a Python-based orchestration tool we call PyDist (Python Distributor) as the control layer that manages the entire testing lifecycle. PyDist connects everything into a single, reliable workflow.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Pydist - Python Distributor" loading="lazy" src="https://defa-ekky1073.github.io/assets/pydist-screencap.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here’s what it does:&lt;/p&gt;
+&lt;h4 id="1-configuration-validation"&gt;1. Configuration Validation&lt;/h4&gt;
+&lt;p&gt;Utilizes Boto3 to verify that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All EC2 nodes (master + workers) are running and reachable&lt;/li&gt;
+&lt;li&gt;S3 buckets are accessible&lt;/li&gt;
+&lt;li&gt;Connections between master and worker nodes are healthy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2-file-distribution"&gt;2. File Distribution&lt;/h4&gt;
+&lt;p&gt;Automatically uploads all .jmx files, .csv variable files, and configurations to the appropriate nodes. No more manual S3 uploads or remote copy scripts.&lt;/p&gt;
+&lt;h4 id="3-service-control"&gt;3. Service Control&lt;/h4&gt;
+&lt;p&gt;Starts and stops the JMeter service on each EC2 instance, ensuring consistent test environments every time.&lt;/p&gt;
+&lt;h4 id="4-test-execution"&gt;4. Test Execution&lt;/h4&gt;
+&lt;p&gt;Runs CLI-based JMeter tests from the master node, coordinating all worker nodes in distributed mode. PyDist also monitors progress and collects test logs in real-time.&lt;/p&gt;
+&lt;h4 id="5-result-management"&gt;5. Result Management&lt;/h4&gt;
+&lt;p&gt;Once tests complete:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Results are automatically uploaded to S3&lt;/li&gt;
+&lt;li&gt;PyDist downloads the results to the local machine for analysis&lt;/li&gt;
+&lt;li&gt;It can also re-download past test results if needed for reporting or regression comparison&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In essence, PyDist replaced dozens of manual steps with a single command and brought order, visibility, and repeatability to the whole process.&lt;/p&gt;
+&lt;!-- ### 4. Automating Cost Efficiency
+With the infrastructure and orchestration layers complete, there was one more challenge: **idle, unused resources**.
+To prevent unnecessary cloud costs, I created two GitHub Actions workflows:
+#### 1. Auto-Shutdown Workflow
+- Runs every midnight
+- Automatically shuts down all EC2 nodes tagged as performance-testing instances
+- Ensures we never pay for unused instances, even if someone forgets to stop them
+#### 2. Cluster Startup Workflow
+- Triggered manually when QA needs to run tests
+- Spins up the entire test cluster automatically
+- QA no longer needs AWS console access or Terraform knowledge, it’s just a button click
+This combination gave us full control, safety, and significant cost savings without sacrificing flexibility.
+Also, JMeter running in CLI mode works significantly more efficiently than JMeter running in GUI mode.
+| Test Type | WorkSpaces | EC2 |
+| -- | -- | -- |
+| Amount of Nodes | 25 Node | 1 Master + 3 Worker |
+| Node Type | Windows PowerPro: 2 vCPU, 8GB RAM | c6g.large: 2 vCPU, 4GB RAM |
+| Light Test | ~30-40 minutes | ~3-5 minutes |
+| Heavy Test | ~45 minutes-1 hours | ~5-10 minutes |
+Even without the Auto-Shutdown, EC2 is still more cost-effective than WorkSpaces:
+```markdown
+📊 Cost Comparison: EC2 vs WorkSpaces
+EC2 c6g.large (ARM-based, 2 vCPU, 4GB RAM, On-Demand)
+• ICompute: 4 × $0.068/hour × 730 hours = $198.56
+• EBS Storage: 4 × 20GB × $0.10 = $8.00
+• Data Transfer: ~$11.00
+• Total Monthly: ~$220/month
+• Annual: ~$2,640
+Savings vs WorkSpaces:
+- Monthly: ~$3,800 – $5,800 less than WorkSpaces
+- Annual: ~$69,360 – $93,360 less than WorkSpaces
+```
+So by having auto-shutdown and having the instance started before the test further enhances the cost efficiency. --&gt;
+&lt;h3 id="4-cost-optimization"&gt;4. Cost Optimization&lt;/h3&gt;
+&lt;p&gt;By transitioning from GUI to CLI mode and optimizing our infrastructure, we achieved remarkable performance improvements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Test Execution Time&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Light tests: 30-40 minutes → 3-5 minutes (8-13x faster)&lt;/li&gt;
+&lt;li&gt;Heavy tests: 45-60 minutes → 5-10 minutes (6-12x faster)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Resource Utilization&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduced from 25 Windows instances to just 4 Linux instances&lt;/li&gt;
+&lt;li&gt;Each node handles significantly more load due to CLI efficiency&lt;/li&gt;
+&lt;li&gt;ARM-based instances provide better price/performance ratio&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="cost-effective-infrastructure"&gt;Cost-Effective Infrastructure&lt;/h4&gt;
+&lt;p&gt;Our new architecture delivers substantial cost savings:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th&gt;Old (WorkSpaces)&lt;/th&gt;
+&lt;th&gt;New (EC2)&lt;/th&gt;
+&lt;th&gt;Savings&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Node Type&lt;/td&gt;
+&lt;td&gt;Windows PowerPro (2vCPU, 8GB)&lt;/td&gt;
+&lt;td&gt;c6g.large (2vCPU, 4GB)&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Node Count&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;4 (1 Master + 3 Workers)&lt;/td&gt;
+&lt;td&gt;84% reduction&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Monthly Cost (On-Demand)&lt;/td&gt;
+&lt;td&gt;~$6,000-$8,000&lt;/td&gt;
+&lt;td&gt;~$220&lt;/td&gt;
+&lt;td&gt;96-97% savings&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Annual Cost&lt;/td&gt;
+&lt;td&gt;~$72,000-$96,000&lt;/td&gt;
+&lt;td&gt;~$2,640&lt;/td&gt;
+&lt;td&gt;96-97% savings&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id="smart-automation-with-github-actions"&gt;Smart Automation with GitHub Actions&lt;/h4&gt;
+&lt;p&gt;To maximize cost efficiency, we implemented two key workflows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Auto-Shutdown (Nightly)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Automatically powers down all test instances at midnight&lt;/li&gt;
+&lt;li&gt;Prevents unnecessary charges for idle resources&lt;/li&gt;
+&lt;li&gt;Runs as a scheduled GitHub Action&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;On-Demand Cluster Startup&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Single-click deployment via GitHub Actions&lt;/li&gt;
+&lt;li&gt;No AWS console access or Terraform knowledge required&lt;/li&gt;
+&lt;li&gt;Consistent, repeatable environment setup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id="the-impact-of-auto-shutdown"&gt;The Impact of Auto-Shutdown&lt;/h4&gt;
+&lt;p&gt;While the base EC2 costs are already significantly lower, auto-shutdown provides additional savings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Typical Usage Scenario&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;8 hours/day, 20 days/month = 160 hours of usage&lt;/li&gt;
+&lt;li&gt;Without auto-shutdown: $220/month (24/7 uptime)&lt;/li&gt;
+&lt;li&gt;With auto-shutdown: ~$48/month (160 hours)&lt;/li&gt;
+&lt;li&gt;Additional savings: ~78% off already reduced costs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This combination of performance optimization, right-sized infrastructure, and smart automation ensures we&amp;rsquo;re not just saving money, but also getting faster, more reliable test results.&lt;/p&gt;
+&lt;h3 id="5-the-outcome"&gt;5. The Outcome&lt;/h3&gt;
+&lt;p&gt;By combining Terraform, GitHub Actions, and PyDist, we turned a clunky, manual workflow into a streamlined, automated, and maintainable system.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No more manual uploads or remote logins&lt;/li&gt;
+&lt;li&gt;Fully documented and version-controlled infrastructure&lt;/li&gt;
+&lt;li&gt;Self-service configuration for QA&lt;/li&gt;
+&lt;li&gt;Automated start/stop + cost control&lt;/li&gt;
+&lt;li&gt;Reliable, repeatable, fast test runs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And the result?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Test cycle time reduced from 2 hours → 15 minutes 🚀&lt;/li&gt;
+&lt;li&gt;~$60,000+/year in infrastructure savings 💸&lt;/li&gt;
+&lt;li&gt;Plus unmeasured (but huge) savings in time, manual effort, and frustration 😃&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="lesson-learned"&gt;Lesson Learned&lt;/h2&gt;
+&lt;p&gt;Rebuilding the performance-testing platform taught me that real reliability isn’t about tools, it’s about systems. The old workflow didn’t fail because JMeter was bad; it failed because the process around it wasn’t built to scale.&lt;/p&gt;
+&lt;p&gt;Here’s what stood out the most:&lt;/p&gt;
+&lt;h3 id="1-fix-the-process-not-just-the-tool"&gt;1. Fix the process, not just the tool&lt;/h3&gt;
+&lt;p&gt;Automation works best when it removes human dependency. By redesigning the workflow we turned a manual process into a repeatable system.&lt;/p&gt;
+&lt;h3 id="2-iac-is-communication-not-just-code"&gt;2. IaC is communication, not just code&lt;/h3&gt;
+&lt;p&gt;Terraform made every change visible, reviewable, and reversible. It replaced tribal knowledge with a shared, documented truth.&lt;/p&gt;
+&lt;h3 id="3-empower-dont-gatekeep"&gt;3. Empower, don’t gatekeep&lt;/h3&gt;
+&lt;p&gt;By simplifying configuration for QA, we gave ownership back to the team. They could run, tweak, and iterate without waiting on SREs.&lt;/p&gt;
+&lt;h3 id="4-build-cost-efficiency-into-design"&gt;4. Build cost efficiency into design&lt;/h3&gt;
+&lt;p&gt;We stopped relying on people to remember to shut things down. With automation, cost-saving became an inherent behavior, not an afterthought.&lt;/p&gt;
+&lt;h3 id="5-make-testing-a-habit"&gt;5. Make testing a habit&lt;/h3&gt;
+&lt;p&gt;When tests are fast and simple, people run them often. That’s how reliability becomes part of the culture, not a special event.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="final-take"&gt;Final Take&lt;/h2&gt;
+&lt;p&gt;What started as a slow, frustrating process became an elegant system that just works. Tests that once took hours now finish in minutes, infrastructure spins up and down on demand, and engineers can focus on insight instead of setup.&lt;/p&gt;
+&lt;p&gt;But the biggest win isn’t the speed or the savings: &lt;strong&gt;it’s the shift in mindset&lt;/strong&gt;. Performance testing stopped being a chore and became a shared discipline.&lt;/p&gt;
+&lt;p&gt;Thank you for taking the time to read about this journey. I hope you found some useful insights or inspiration in these pages. If you&amp;rsquo;re working on similar challenges, I&amp;rsquo;d love to hear about your experiences.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After all, the best solutions often come from sharing knowledge and learning from each other.&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>
