@@ -457,7 +457,7 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;/ul&gt;</description></item><item><title>Professional Experience</title><link>https://defa-ekky1073.github.io/experience/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky1073.github.io/experience/</guid><description>&lt;hr&gt;
 &lt;h2 id="wawai-partners--solution-architect"&gt;&lt;a href="https://wawaipartners.com/"&gt;Wawai Partners | Solution Architect&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, April 2026 — Present&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Wawai Partners is a boutique digital agency that pairs AI coding agents with production-grade engineering to build and ship infrastructure, tooling, and products for clients. As Solution Architect, I own our internal platforms and client-facing systems end to end.&lt;/p&gt;
+&lt;p&gt;Wawai Partners is a Texas-based boutique digital agency that pairs AI coding agents with production-grade engineering to build and ship infrastructure, tooling, and products for clients. As Solution Architect, I own our internal platforms and client-facing systems end to end.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Spearheaded &amp;ldquo;Wawai Built with AI&amp;rdquo; end to end (GitHub CI/CD, serverless AWS architecture, stack selection), setting an internal record of spec-to-production-ready site in 4 hours.&lt;/li&gt;
 &lt;li&gt;Designed an AI worker pipeline (BugHerd → n8n → Claude Code → GitHub) that turns client feedback tickets into shipped, human-reviewed PRs, with multi-PIC support and per-client staging previews.&lt;/li&gt;
@@ -468,7 +468,7 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;/blockquote&gt;
 &lt;h2 id="quipper--senior-site-reliability-engineer"&gt;&lt;a href="https://quipper.com/"&gt;Quipper | Senior Site Reliability Engineer&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, September 2022 — May 2026&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;As the Senior SRE, I own the reliability and developer-experience charter across multi-cloud infrastructure, pushing automation, observability, and CI/CD maturity so teams can ship faster with confidence.&lt;/p&gt;
+&lt;p&gt;As the Senior SRE at this Tokyo-headquartered edtech company, I own the reliability and developer-experience charter across multi-cloud infrastructure, pushing automation, observability, and CI/CD maturity so teams can ship faster with confidence.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Migrated CI/CD from CircleCI to GitHub Actions with self-hosted runners, saving ~$6K/month and enabling reusable workflows.&lt;/li&gt;
 &lt;li&gt;Cut end-to-end tests from 2 hours to 15 minutes (≈$60K/year savings) and lifted developer productivity by 83% through pipeline instrumentation and deployment insights.&lt;/li&gt;
