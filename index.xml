@@ -461,7 +461,6 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;ul&gt;
 &lt;li&gt;Spearheaded &amp;ldquo;Wawai Built with AI&amp;rdquo; end to end (GitHub CI/CD, serverless AWS architecture, stack selection), setting an internal record of spec-to-production-ready site in 4 hours.&lt;/li&gt;
 &lt;li&gt;Designed an AI worker pipeline (BugHerd → n8n → Claude Code → GitHub) that turns client feedback tickets into shipped, human-reviewed PRs, with multi-PIC support and per-client staging previews.&lt;/li&gt;
-&lt;li&gt;Solved cross-client apex-domain routing with a Terraform-managed EC2 + Caddy proxy (SSM-only, no SSH), rolled out across multiple client domains.&lt;/li&gt;
 &lt;li&gt;Shipped Wawai Email Sender, a multi-tenant AI-orchestrated bulk email platform on AWS SES exposed as an MCP server, backed by OAuth 2.1, SQS/Lambda, DynamoDB, and Postgres.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
