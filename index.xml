@@ -457,12 +457,12 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;/ul&gt;</description></item><item><title>Professional Experience</title><link>https://defa-ekky1073.github.io/experience/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky1073.github.io/experience/</guid><description>&lt;hr&gt;
 &lt;h2 id="wawai-partners--solution-architect"&gt;&lt;a href="https://wawaipartners.com/"&gt;Wawai Partners | Solution Architect&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, 2026 — Present&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Some partnerships start with a formal interview. Ours started with two engines idling in the East Java highlands and no agenda beyond &amp;ldquo;let&amp;rsquo;s ride.&amp;rdquo; That&amp;rsquo;s how it began with Jon Coss, founder of Wawai Partners — no resume review, just two people who solve problems the way they ride. Since then, as Solution Architect, here&amp;rsquo;s what that&amp;rsquo;s turned into:&lt;/p&gt;
+&lt;p&gt;Wawai Partners is a boutique digital agency that pairs AI coding agents with production-grade engineering to build and ship infrastructure, tooling, and products for clients. As Solution Architect, I own our internal platforms and client-facing systems end to end.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Wawai Built with AI:&lt;/strong&gt; Spearheaded this end to end — GitHub setup with full CI/CD, a serverless AWS architecture (S3, CloudFront, IAM), and stack selection (landed on Astro after researching headless GHL and WordPress routes). Built from the ground up to a fully functional production system, currently holding an internal record: spec delivered to production-ready site in 4 hours.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AI Worker Pipeline:&lt;/strong&gt; BugHerd → n8n → Claude Code → GitHub, turning client feedback tickets into shipped, human-reviewed PRs. Multi-PIC support, per-client staging previews, production gated on merge-triggered GitHub Actions.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Apex Proxy:&lt;/strong&gt; A lightweight, Terraform-managed EC2 running Caddy (SSM-only, no SSH) solving the classic &amp;ldquo;apex domain can&amp;rsquo;t point to CloudFront&amp;rdquo; problem, rolled out across multiple client domains.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Wawai Email Sender:&lt;/strong&gt; A multi-tenant, AI-orchestrated bulk email platform on AWS SES, exposed as an MCP server — OAuth 2.1, SQS/Lambda send pipeline, DynamoDB + Postgres underneath.&lt;/li&gt;
+&lt;li&gt;Spearheaded &amp;ldquo;Wawai Built with AI&amp;rdquo; end to end (GitHub CI/CD, serverless AWS architecture, stack selection), setting an internal record of spec-to-production-ready site in 4 hours.&lt;/li&gt;
+&lt;li&gt;Designed an AI worker pipeline (BugHerd → n8n → Claude Code → GitHub) that turns client feedback tickets into shipped, human-reviewed PRs, with multi-PIC support and per-client staging previews.&lt;/li&gt;
+&lt;li&gt;Solved cross-client apex-domain routing with a Terraform-managed EC2 + Caddy proxy (SSM-only, no SSH), rolled out across multiple client domains.&lt;/li&gt;
+&lt;li&gt;Shipped Wawai Email Sender, a multi-tenant AI-orchestrated bulk email platform on AWS SES exposed as an MCP server, backed by OAuth 2.1, SQS/Lambda, DynamoDB, and Postgres.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Tech Stacks:&lt;/strong&gt; AWS (S3, CloudFront, IAM, SES, SQS, Lambda), Terraform, Astro, GitHub Actions, n8n, Claude Code, BugHerd, DynamoDB, PostgreSQL, MCP, Caddy&lt;/p&gt;
