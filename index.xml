@@ -455,6 +455,18 @@ So by having auto-shutdown and having the instance started before the test furth
 &lt;li&gt;LinkedIn: &lt;a href="https://linkedin.com/in/defaekky1994"&gt;https://linkedin.com/in/defaekky1994&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;GitHub: &lt;a href="https://github.com/defa-ekky1073"&gt;https://github.com/defa-ekky1073&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>Professional Experience</title><link>https://defa-ekky1073.github.io/experience/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://defa-ekky1073.github.io/experience/</guid><description>&lt;hr&gt;
+&lt;h2 id="wawai-partners--solution-architect"&gt;&lt;a href="https://wawaipartners.com/"&gt;Wawai Partners | Solution Architect&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, 2026 — Present&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Some partnerships start with a formal interview. Ours started with two engines idling in the East Java highlands and no agenda beyond &amp;ldquo;let&amp;rsquo;s ride.&amp;rdquo; That&amp;rsquo;s how it began with Jon Coss, founder of Wawai Partners — no resume review, just two people who solve problems the way they ride. Since then, as Solution Architect, here&amp;rsquo;s what that&amp;rsquo;s turned into:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Wawai Built with AI:&lt;/strong&gt; Spearheaded this end to end — GitHub setup with full CI/CD, a serverless AWS architecture (S3, CloudFront, IAM), and stack selection (landed on Astro after researching headless GHL and WordPress routes). Built from the ground up to a fully functional production system, currently holding an internal record: spec delivered to production-ready site in 4 hours.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI Worker Pipeline:&lt;/strong&gt; BugHerd → n8n → Claude Code → GitHub, turning client feedback tickets into shipped, human-reviewed PRs. Multi-PIC support, per-client staging previews, production gated on merge-triggered GitHub Actions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apex Proxy:&lt;/strong&gt; A lightweight, Terraform-managed EC2 running Caddy (SSM-only, no SSH) solving the classic &amp;ldquo;apex domain can&amp;rsquo;t point to CloudFront&amp;rdquo; problem, rolled out across multiple client domains.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Wawai Email Sender:&lt;/strong&gt; A multi-tenant, AI-orchestrated bulk email platform on AWS SES, exposed as an MCP server — OAuth 2.1, SQS/Lambda send pipeline, DynamoDB + Postgres underneath.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Tech Stacks:&lt;/strong&gt; AWS (S3, CloudFront, IAM, SES, SQS, Lambda), Terraform, Astro, GitHub Actions, n8n, Claude Code, BugHerd, DynamoDB, PostgreSQL, MCP, Caddy&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="quipper--senior-site-reliability-engineer"&gt;&lt;a href="https://quipper.com/"&gt;Quipper | Senior Site Reliability Engineer&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Remote, 2022 — 2026&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;As the Senior SRE, I own the reliability and developer-experience charter across multi-cloud infrastructure, pushing automation, observability, and CI/CD maturity so teams can ship faster with confidence.&lt;/p&gt;
